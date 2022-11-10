@@ -2,6 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./style.css";
 
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 2500); 
+}
+
+
+
+
 function Banner() {
   return (
     <div id="banner">
@@ -15,6 +31,8 @@ function Banner() {
     </div>
   );
 }
+
+let slideIndex =1;
 
 function Navbar() {
   return (
@@ -50,30 +68,56 @@ function Heading() {
 
 function SlideDiv() {
   return (
-    <div className="slideshow-container">
-      <Slides number="1" img={require("./img/Marissa.png")} text="Marissa" />
-      <Slides number="2" img={require("./img/Blaze.png")} text="Blaze" />
-      <Slides number="3" img="{require('./img/Allie.png')}" text="Allie" />
-      <Slides number="4" img="{require('./img/Hera.png')}" text="Hera" />
-      <SlideButtons text="prev" change="-1" img="&#10094" />
-      <SlideButtons text="next" change="1" img="&#10095" />
+    <div class="slideshow-container">
+     
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 4</div>
+        <img
+          src={require("./img/Marissa.png")}
+          style={{ width: "80%" }}
+          alt="Marissa"
+        />
+        <div class="text">Marissa</div>
+      </div>
 
-      <SlideDotsDiv />
+      <div class="mySlides fade">
+    <div class="numbertext">2 / 4</div>
+    <img src={require("./img/Blaze.png")} style={{width:"80%"}} alt="Blaze"/>
+    <div class="text">Blaze</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 4</div>
+    <img src={require("./img/Allie.png")} style={{width:"80%"}} alt="Allie"/>
+    <div class="text">Allie</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">4 / 4</div>
+    <img src={require("./img/Hera.png")} style={{width:"80%"}} alt="Hera"/>
+    <div class="text">Hera</div>
+  </div>
+
+      <button class="prev" onclick="plusSlides(-1)">
+        &#10094;
+      </button>
+      <button class="next" onclick="plusSlides(1)">
+        &#10095;
+      </button>
     </div>
   );
 }
 
-function Slides(props) {
-
-  return <img src={require("./img/Blaze.png")} alt="cum"></img>
-  // return (
-  //   <div className="mySlides fade">
-  //     <div className="numbertext">{props.number} / 4</div>
-  //     <img src={props.img} alt={props.text} height="1000px" width="800px" />
-  //     <div className="text">{props.text}</div>
-  //   </div>
-  // );
-}
+// function Slides(props) {
+//   return <img src={require("./img/Blaze.png")} alt="cum"></img>;
+//   // return (
+//   //   <div className="mySlides fade">
+//   //     <div className="numbertext">{props.number} / 4</div>
+//   //     <img src={props.img} alt={props.text} height="1000px" width="800px" />
+//   //     <div className="text">{props.text}</div>
+//   //   </div>
+//   // );
+// }
 
 function SlideButtons(props) {
   return (
@@ -109,3 +153,29 @@ function SiteContainer() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<SiteContainer />);
+
+
+// function showSlides(n) {
+//   let i;
+//   let slides = document.getElementsByClassName("mySlides");
+//   let dots = document.getElementsByClassName("dot");
+//   if (n > slides.length) {slideIndex = 1}
+//   if (n < 1) {slideIndex = slides.length}
+//   for (i = 0; i < slides.length; i++) {
+//     slides[i].style.display = "none";
+//   }
+//   for (i = 0; i < dots.length; i++) {
+//     dots[i].className = dots[i].className.replace(" active", "");
+//   }
+//   slides[slideIndex-1].style.display = "block";
+//   dots[slideIndex-1].className += " active";
+// }
+
+window.onload = () => {
+  showSlides();
+}
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
